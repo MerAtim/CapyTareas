@@ -2,32 +2,30 @@
 # Este archivo se usa cuando SPRING_PROFILES_ACTIVE=prod
 
 spring:
-    application:
-        name: ToDo API
+  application:
+    name: ToDo API
+  # Configuración de PostgreSQL (Render usa PostgreSQL, no MySQL)
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/todoapp}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
 
-    # Configuración de PostgreSQL (Render usa PostgreSQL, no MySQL)
-    datasource:
-        url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/todoapp}
-        username: ${DB_USERNAME:postgres}
-        password: ${DB_PASSWORD:postgres}
-        driver-class-name: org.postgresql.Driver
+# Puerto del servidor (Render lo asigna automáticamente)
+server:
+  port: ${PORT:8080}
 
-    jpa:
-        hibernate:
-            ddl-auto: update
-        show-sql: false
-        properties:
-            hibernate:
-                dialect: org.hibernate.dialect.PostgreSQLDialect
-                format_sql: true
-
-    # Puerto del servidor (Render lo asigna automáticamente)
-    server:
-        port: ${PORT:8080}
-
-    # Documentación API
-    springdoc:
-        api-docs:
-            path: /api-docs
-        swagger-ui:
-            path: /swagger-ui.html
+# Documentación API
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
