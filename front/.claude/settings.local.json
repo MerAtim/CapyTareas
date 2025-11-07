@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(tree:*)",
+      "Bash(nul)",
+      "Bash(powershell -Command:*)",
+      "Bash(dir /B /S \"c:\\Users\\guerr\\Desktop\\CarpinchosProgramando_CuartoSemestre\\TECNICATURA_CuartoSemestre\\JAVA\\Clase11\\front\\assets\")"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

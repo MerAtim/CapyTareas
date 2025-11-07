@@ -1,0 +1,463 @@
+/* ======================================
+   RESET & VARIABLES
+   ====================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-grad-start: #ffd1dc;   /* pastel pink */
+  --bg-grad-end:   #c9b6ff;   /* soft lavender */
+  --accent:        #ff7eb8;   /* candy pink */
+  --accent-2:      #b388ff;   /* soft purple */
+  --text:          #2b2b2b;
+  --text-light:    #ffffff;
+  --muted:         #7a7a7a;
+  --card-bg:       rgba(255, 255, 255, 0.90);
+  --shadow:        0 12px 30px rgba(179, 136, 255, 0.25);
+  --shadow-hover:  0 16px 40px rgba(179, 136, 255, 0.35);
+  --radius-lg:     22px;
+  --radius-md:     16px;
+  --radius-sm:     12px;
+}
+
+/* ======================================
+   GLOBAL STYLES
+   ====================================== */
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+main {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--bg-grad-start), var(--bg-grad-end));
+  padding: 40px 20px;
+}
+
+/* ======================================
+   MAIN CARD
+   ====================================== */
+
+.mainCard {
+  width: min(900px, 95vw);
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: var(--radius-lg);
+  padding: 40px 36px 32px;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  animation: fadeInUp 0.6s ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ======================================
+   HEADER / TITLE
+   ====================================== */
+
+.utn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+
+.title img {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 14px rgba(255, 126, 184, 0.4));
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+h1 {
+  font-family: 'Parisienne', cursive;
+  font-size: clamp(32px, 4vw, 48px);
+  color: var(--text);
+  letter-spacing: 1px;
+  text-shadow: 0 2px 8px rgba(255, 126, 184, 0.2);
+  margin: 0;
+}
+
+/* ======================================
+   FORM
+   ====================================== */
+
+form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 32px;
+  padding: 0 10px;
+}
+
+.inputForm,
+input[type="datetime-local"] {
+  background: #ffffff;
+  border: 2px solid rgba(179, 136, 255, 0.2);
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  color: var(--text);
+  font-family: 'Open Sans', sans-serif;
+  font-size: 15px;
+  width: calc(50% - 7px);
+  min-width: 200px;
+  transition: all .25s ease;
+  outline: none;
+}
+
+.inputForm::placeholder {
+  color: var(--muted);
+  opacity: 0.7;
+}
+
+.inputForm:focus,
+input[type="datetime-local"]:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(255, 126, 184, 0.15),
+              0 8px 20px rgba(179, 136, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity .2s ease;
+}
+
+input[type="datetime-local"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
+
+.btnCreate {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  border: none;
+  border-radius: 999px;
+  padding: 14px 28px;
+  color: var(--text-light);
+  font-family: 'Dosis', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  box-shadow: 0 10px 26px rgba(255, 126, 184, 0.4);
+  transition: all .2s ease;
+  text-transform: uppercase;
+  min-width: 160px;
+}
+
+.btnCreate:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 34px rgba(255, 126, 184, 0.5);
+  filter: brightness(1.1);
+}
+
+.btnCreate:active {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(255, 126, 184, 0.4);
+}
+
+.btnCreate i {
+  font-size: 18px;
+}
+
+/* ======================================
+   TASKS LIST
+   ====================================== */
+
+.cardsList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: 500px;
+  overflow-y: auto;
+  padding: 0 10px 10px 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-2) transparent;
+}
+
+.cardsList::-webkit-scrollbar {
+  width: 10px;
+}
+
+.cardsList::-webkit-scrollbar-track {
+  background: rgba(179, 136, 255, 0.08);
+  border-radius: 10px;
+}
+
+.cardsList::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--accent-2), var(--accent));
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.cardsList::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--accent), var(--accent-2));
+  background-clip: padding-box;
+}
+
+/* ======================================
+   TASK CARD
+   ====================================== */
+
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: #ffffff;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(179, 136, 255, 0.12);
+  padding: 18px 22px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  transition: all .25s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: slideIn 0.4s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+  border-color: rgba(179, 136, 255, 0.25);
+}
+
+.card > div:first-child {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: 1;
+  min-width: 0;
+}
+
+.task {
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  flex: 1;
+  word-break: break-word;
+  transition: all .25s ease;
+}
+
+/* Completed task styles */
+.card.completed .task {
+  text-decoration: line-through;
+  color: var(--muted);
+  opacity: 0.6;
+}
+
+.card.completed {
+  opacity: 0.8;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+/* ======================================
+   DATE & TIME
+   ====================================== */
+
+.date {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  background: rgba(179, 136, 255, 0.08);
+  padding: 6px 14px;
+  border-radius: 20px;
+  white-space: nowrap;
+  margin-bottom: 20px;
+  display: inline-block;
+}
+
+.card > span:not(.task) {
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.card > span:not(.task)::before {
+  content: "\f017";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  font-size: 13px;
+  opacity: 0.6;
+}
+
+/* ======================================
+   ICONS
+   ====================================== */
+
+.icon {
+  color: var(--muted);
+  font-size: 20px;
+  cursor: pointer;
+  transition: all .2s ease;
+  padding: 8px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon:hover {
+  color: var(--accent-2);
+  transform: scale(1.15);
+  background: rgba(179, 136, 255, 0.1);
+}
+
+.completeIcon {
+  color: var(--accent-2);
+}
+
+.completeIcon:hover {
+  color: #8b5cf6;
+  transform: scale(1.15) rotate(15deg);
+}
+
+.trashIcon {
+  color: var(--muted);
+}
+
+.trashIcon:hover {
+  color: #ff5c8a;
+  background: rgba(255, 92, 138, 0.1);
+  transform: scale(1.15);
+}
+
+/* ======================================
+   RESPONSIVE
+   ====================================== */
+
+@media (max-width: 768px) {
+  .mainCard {
+    padding: 32px 24px;
+  }
+
+  h1 {
+    font-size: clamp(28px, 6vw, 36px);
+  }
+
+  .title img {
+    width: 60px;
+    height: 60px;
+  }
+
+  form {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .inputForm,
+  input[type="datetime-local"],
+  .btnCreate {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .card {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .card > div:first-child {
+    width: 100%;
+  }
+
+  .card > span:not(.task) {
+    margin-left: auto;
+  }
+
+  .cardsList {
+    max-height: 400px;
+    padding-right: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  main {
+    padding: 20px 10px;
+  }
+
+  .mainCard {
+    padding: 24px 18px;
+  }
+
+  .utn {
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .title img {
+    width: 50px;
+    height: 50px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  .card {
+    padding: 14px 16px;
+  }
+
+  .task {
+    font-size: 15px;
+  }
+
+  .icon {
+    font-size: 18px;
+    padding: 6px;
+  }
+}
